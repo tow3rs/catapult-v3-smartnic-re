@@ -69,7 +69,9 @@ At this moment the following tasks are accomplished:
 - Identification of two 72bit DDR4 interfaces (`Tested both channels in both boads`).
 - Identification of FPGA transceiver pins for communication with Mellanox NIC ASIC (`Untested`).
 
-The [spreadsheet](Documents/FPGA_Pinouts.xlsx) in Documents folder contains the FPGA pinouts and other findings.  
+The [FPGA_Pinouts](Documents/FPGA_Pinouts.xlsx) spreadsheet contains the FPGA pinouts and other findings.  
+The [Header_Pinouts](Documents/Header_Pinouts.xlsx) spreadsheet contains the pinouts for the external headers.  
+The [BOM](Documents/BOM.xlsx) spreadsheet contains a Bill of Materials for some ICs.  
 The [GoldenTop](Projects/GoldenTop) project contains a simple Quartus design with a top level entity exposing all found FPGA pins.  
 
 ## TODO List
@@ -89,14 +91,15 @@ The following tasks are pending:
   - U44, identical to U22 (Level shifter with programmable I/O directions). Unknown purpose.
 - Find the datasheet for several small components (maybe level shifters or voltage regulators?).
 - Create a complete documentation (PDF document, etc.).
+- Create a software interface to manage the devices attached to I2C bus.
 
 ## Some notes
 
 #### About the contents in this repo
 There are the following folders in this repo:  
 - **Documents**: Contains several subfolders with pictures, datasheets, spreadsheets, etc.  
-- **Projects**: Constains the Quartus projects organized in subfolders for each category.  
-Some projects have a `'Software'` subfolder containing the NIOS II EDS projects with the app's and bsp to be used in conjunction with the hardware project.
+- **Projects**: Contains the Quartus projects organized in subfolders for each category.  
+Some projects have a `'Software'` subfolder containing the NIOS II EDS projects with the apps and bsp to be used in conjunction with the hardware project.
 
 #### About the hardware components
 - The FPGA P/N `10AXF40GAA` isn't listed in the Arria 10 datasheets and seems to use a non-standard nomenclature pattern.  
@@ -104,7 +107,7 @@ Some projects have a `'Software'` subfolder containing the NIOS II EDS projects 
 According to [this](https://twitter.com/rombik_su/status/1341125492884332549) [@rombik_su](https://twitter.com/rombik_su) twitter thread, this device is identical to `10AX115N4F40E3SG`, also the Quartus device properties window reports the same characteristics.  
 However, there are [some pictures](https://www.nextplatform.com/2020/02/03/vertical-integration-is-eating-the-datacenter-part-two/) for the OCP card mounting this P/N `10AX090N3F40E2SG`.  
 ![](Documents/Pictures/ocp_variant.png)  
-Also, in this picture, some components such as Y4 oscillator is missing, this clock is used to drive the DDR4 interface on the bottom side, maybe this is another variant of these cards with fewer resources.  
+Also, in this picture, some components such as Y4 oscillator is missing, this clock is supposed that drives the DDR4 interface on the top side, maybe this is another variant of these cards.  
 Anyways, Quartus is able to generate the bitstreams for the `10AXF40GAA` and this strange Arria 10 device seems to accept all of them (`10AXF40GAA`, `10AX115N4F40E3SG` or `10AX090N3F40E2SG`)
 - It seems that the PCIe version have a better Mellanox NIC ASIC hardware: ConnectX 3Pro vs ConnectX 4Lx.  
 ConnectX 3Pro is 40GbE capable and ConnectX 4Lx is 50GbE.
