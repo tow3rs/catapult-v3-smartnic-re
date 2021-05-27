@@ -1,0 +1,137 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 2020  Intel Corporation. All rights reserved.
+# Your use of Intel Corporation's design tools, logic functions 
+# and other software and tools, and any partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Intel Program License 
+# Subscription Agreement, the Intel Quartus Prime License Agreement,
+# the Intel FPGA IP License Agreement, or other applicable license
+# agreement, including, without limitation, that your use is for
+# the sole purpose of programming logic devices manufactured by
+# Intel and sold by Intel or its authorized distributors.  Please
+# refer to the applicable agreement for further details, at
+# https://fpgasoftware.intel.com/eula.
+#
+# -------------------------------------------------------------------------- #
+
+set_global_assignment -name FAMILY "Arria 10"
+set_global_assignment -name DEVICE 10AXF40AA
+set_global_assignment -name TOP_LEVEL_ENTITY TopEntity
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.1
+set_global_assignment -name LAST_QUARTUS_VERSION "20.1.1 Standard Edition"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 2
+
+set_global_assignment -name AUTO_RESERVE_CLKUSR_FOR_CALIBRATION OFF
+
+set_global_assignment -name ENABLE_OCT_DONE OFF
+set_global_assignment -name STRATIXV_CONFIGURATION_SCHEME "ACTIVE SERIAL X4"
+set_global_assignment -name USE_CONFIGURATION_DEVICE ON
+set_global_assignment -name CRC_ERROR_OPEN_DRAIN ON
+set_global_assignment -name RESERVE_DATA0_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
+set_global_assignment -name ACTIVE_SERIAL_CLOCK FREQ_100MHZ
+set_location_assignment PIN_AM17 -to leds[0]
+set_location_assignment PIN_AH18 -to leds[1]
+set_location_assignment PIN_AJ18 -to leds[2]
+set_location_assignment PIN_AH17 -to leds[3]
+set_location_assignment PIN_AJ16 -to leds[4]
+set_location_assignment PIN_AK17 -to leds[5]
+set_location_assignment PIN_AK16 -to leds[6]
+set_location_assignment PIN_AK18 -to leds[7]
+set_location_assignment PIN_AL18 -to leds[8]
+set_location_assignment PIN_AP20 -to clk_u59
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_location_assignment PIN_AG5 -to clk_y3
+set_location_assignment PIN_AG6 -to "clk_y3(n)"
+set_location_assignment PIN_J3 -to clk_y4
+set_location_assignment PIN_K3 -to "clk_y4(n)"
+set_location_assignment PIN_U29 -to clk_y5
+set_location_assignment PIN_U28 -to "clk_y5(n)"
+set_location_assignment PIN_E29 -to clk_y6
+set_location_assignment PIN_AN29 -to clk_pcie1
+set_location_assignment PIN_AN28 -to "clk_pcie1(n)"
+set_location_assignment PIN_AE29 -to clk_pcie2
+set_location_assignment PIN_AE28 -to "clk_pcie2(n)"
+set_location_assignment PIN_AE33 -to pcie2_rx[0]
+set_location_assignment PIN_AE32 -to "pcie2_rx[0](n)"
+set_location_assignment PIN_AD31 -to pcie2_rx[1]
+set_location_assignment PIN_AD30 -to "pcie2_rx[1](n)"
+set_location_assignment PIN_AD35 -to pcie2_rx[2]
+set_location_assignment PIN_AD34 -to "pcie2_rx[2](n)"
+set_location_assignment PIN_AC33 -to pcie2_rx[3]
+set_location_assignment PIN_AC32 -to "pcie2_rx[3](n)"
+set_location_assignment PIN_AB31 -to pcie2_rx[4]
+set_location_assignment PIN_AB30 -to "pcie2_rx[4](n)"
+set_location_assignment PIN_AB35 -to pcie2_rx[5]
+set_location_assignment PIN_AB34 -to "pcie2_rx[5](n)"
+set_location_assignment PIN_AA33 -to pcie2_rx[6]
+set_location_assignment PIN_AA32 -to "pcie2_rx[6](n)"
+set_location_assignment PIN_Y35 -to pcie2_rx[7]
+set_location_assignment PIN_Y34 -to "pcie2_rx[7](n)"
+set_location_assignment PIN_AG37 -to pcie2_tx[0]
+set_location_assignment PIN_AG36 -to "pcie2_tx[0](n)"
+set_location_assignment PIN_AF39 -to pcie2_tx[1]
+set_location_assignment PIN_AF38 -to "pcie2_tx[1](n)"
+set_location_assignment PIN_AE37 -to pcie2_tx[2]
+set_location_assignment PIN_AE36 -to "pcie2_tx[2](n)"
+set_location_assignment PIN_AD39 -to pcie2_tx[3]
+set_location_assignment PIN_AD38 -to "pcie2_tx[3](n)"
+set_location_assignment PIN_AC37 -to pcie2_tx[4]
+set_location_assignment PIN_AC36 -to "pcie2_tx[4](n)"
+set_location_assignment PIN_AB39 -to pcie2_tx[5]
+set_location_assignment PIN_AB38 -to "pcie2_tx[5](n)"
+set_location_assignment PIN_AA37 -to pcie2_tx[6]
+set_location_assignment PIN_AA36 -to "pcie2_tx[6](n)"
+set_location_assignment PIN_Y39 -to pcie2_tx[7]
+set_location_assignment PIN_Y38 -to "pcie2_tx[7](n)"
+set_global_assignment -name SDC_FILE Constraints.sdc
+set_global_assignment -name QSYS_FILE Qsys.qsys
+set_global_assignment -name VERILOG_FILE Catapult_v3_PCIe2.v
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name IO_STANDARD LVDS -to clk_y3
+set_instance_assignment -name IO_STANDARD LVDS -to clk_y4
+set_instance_assignment -name IO_STANDARD LVDS -to clk_y5
+set_instance_assignment -name IO_STANDARD LVDS -to clk_y6
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to pcie2_rx[0]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to pcie2_rx[7]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to pcie2_rx[6]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to pcie2_rx[5]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to pcie2_rx[4]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to pcie2_rx[3]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to pcie2_rx[2]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to pcie2_rx[1]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to pcie2_tx[7]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to pcie2_tx[6]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to pcie2_tx[5]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to pcie2_tx[4]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to pcie2_tx[3]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to pcie2_tx[2]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to pcie2_tx[1]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to pcie2_tx[0]
+set_instance_assignment -name IO_STANDARD LVDS -to clk_pcie1
+set_instance_assignment -name IO_STANDARD LVDS -to clk_pcie2
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[8]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[7]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[6]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[5]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[4]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[3]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[2]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[1]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[0]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to pcie2_perstn
+set_location_assignment PIN_AV18 -to pcie2_perstn
+set_instance_assignment -name IO_STANDARD "1.8 V" -to clk_u59
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

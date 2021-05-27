@@ -25,10 +25,10 @@ Both variants share the same main hardware components with minor differences:
   - Bus for U17 retimer and QSFP interface management.
   - Bus to manage the following parts: several power distribution components, I2C EEPROM, PCIe clock generation chip, I2C to GPIO chip, temperature sensor, etc.
   - Bus for Mellanox NIC ASIC management.
-- Two independent PCIe Gen3 8x interfaces for FPGA.
-  - First interface is routed to first 8x interface of PCIe bifurcation in SAMTEC connector (OCP board) and to 1-8 lanes of the PCIe edge (PCIe board).
-  - Second interface is routed to an external connector: To proprietary connector J8 in the OCP board and to Oculink connector in the PCIe board.
-- One PCIe Gen3 8x interface for Mellanox NIC ASIC, routed to the second 8x PCIe bifurcation in the SAMTEC connector (OCP board) and to 9-16 lanes of the PCIe edge (PCIe board).
+- Two independent PCIe 8x Gen3 interfaces for FPGA.
+  - First interface is routed to the first 8x interface of PCIe bifurcation in SAMTEC connector (OCP board) and to 1-8 lanes of the PCIe edge (PCIe board).
+  - Second interface is routed to an external connector J8 (OCP board) and to 9-16 lanes of the PCIe edge (PCIe board).
+- One PCIe Gen3 8x interface for Mellanox NIC ASIC, routed to the second 8x PCIe bifurcation in the SAMTEC connector (OCP board) and to the Oculink connector (PCIe board).
 - One QSFP+ port connected to the FPGA through the U17 retimer.
 - Onboard USB JTAG programmer based on `FTDI` `FT232H`.
 - Several oscillators.
@@ -60,8 +60,8 @@ At this moment the following tasks are accomplished:
   - One bus for Mellanox NIC ASIC external management (`Untested`).
 - Identification of several GPIO/Unknown purpose pins in FPGA (`Tested`).
 - Identification of PCI Express interfaces.
-  - First 8x interface for FPGA (`Tested PCIe comunication with PC using a simple design in the PCIe variant`).
-  - Second 8x interface for FPGA (`Found pinouts but untested`).
+  - First 8x interface for FPGA (`Tested PCIe communication with PC using a simple design in the PCIe variant`).
+  - Second 8x interface for FPGA (`Tested PCIe communication with PC using a simple design in the PCIe variant`).
   - 8x interface for Mellanox NIC ASIC (`Found pinouts in OCP board but untested`).
 - Identification of network interface pinouts.
   - QSFP cage pins to retimer (`Untested`).
@@ -78,7 +78,7 @@ The [GoldenTop](Projects/GoldenTop) project contains a simple Quartus design wit
 The following tasks are pending:
 - Test/verify the untested tasks in previous point.  
 - Test Ethernet connectivity.  
-- Test FPGA comunication to Mellanox NIC ASIC.
+- Test FPGA communication to Mellanox NIC ASIC.
 - Test Mellanox NIC ASIC PCI Express connectivity.
 - Incomplete or inaccurate constraints for already identified pins.  
 - Find some remaining unknown/GPIO pins in FPGA.  
@@ -112,7 +112,7 @@ Anyways, Quartus is able to generate the bitstreams for the `10AXF40GAA` and thi
 - It seems that the PCIe version have a better Mellanox NIC ASIC hardware: ConnectX 3Pro vs ConnectX 4Lx.  
 ConnectX 3Pro is 40GbE capable and ConnectX 4Lx is 50GbE.
 - Although the amount of RAM is 5GB only 4.5GB are usable. One of the chips of each channel has only 8 bits wired to the FPGA.  
-- Unable to find any documentation for the PCIe side connector J8 in OCP card, only SAMTEC bottom connector appears in the OCP documents, this one seems to be a proprietary connection. It carries 16 pairs of lanes with differential signals for PCIe (8Rx + 8Tx), one presence detect pin, one unknown pin and several ground signals.
+- Unable to find any documentation for the PCIe side connector J8 in OCP card, only the SAMTEC bottom connector appears in the OCP documents, this one seems to be a proprietary connection. It carries 16 pairs of lanes with differential signals for PCIe (8Rx + 8Tx), once PCIe reset signal (PERST_N) and one cable detection pin.
 - FPGA oscillator Y6 is 644.53125 MHz for PCIe card and 156.250 MHz for OCP card. This oscillator is supposed that clocks the FPGA communication with the Mellanox NIC ASIC. This makes sense that ConnectX 3 has a lower speed for interconnect with FPGA (maybe 40GbE or 10GbE?).
 - Unable to use the dedicated JTAG header (J5) to program the FPGA on any of the cards, Quartus Programmer reports JTAG chain errors, other tools are unable to detect any device.
 
@@ -154,12 +154,12 @@ The following options are reliable to make Quartus tools work:
 #### I2C Bus scan  
 ![](Documents/Pictures/i2c_scan.jpg)  
 
-#### Basic PCI Express project with custom design in action  
-The custom PCIe device detected by Windows device manager using the Altera PCI API Driver.  
+#### Basic PCI Express project with two PCIe interfaces  
+The custom PCIe devices detected by Windows device manager using the Altera PCI API Driver.  
 
 ![](Documents/Pictures/dev_manager.png)  
 
-RW Everything tool writing a `01010101` pattern on BAR1 base address of the PCIe device, at this memory address is mapped an Avalon PIO core wired to the LEDs.  
+RW Everything tool writing a `01010101` pattern on BAR1 base address of the first PCIe device, at this memory address is mapped an Avalon PIO core wired to the LEDs.  
 
 ![](Documents/Pictures/rw_everything.png)
 
@@ -185,8 +185,8 @@ There are some online resources mentioning these boards or the previous generati
   - http://virtlab.occamlab.com/home/zapisnik/microsoft-catapult-v2
 - Open Compute Project documents  
   - https://www.opencompute.org/wiki/Server/ProjectOlympus  
-  - https://www.opencompute.org/Documents/Pictures/microsoft-ocs-v2-chassis  
-  - https://www.opencompute.org/Documents/Pictures/microsoft-ocs-v2-tray-mezzanine  
+  - https://www.opencompute.org/documents/microsoft-ocs-v2-chassis  
+  - https://www.opencompute.org/documents/microsoft-ocs-v2-tray-mezzanine   
 - Some PDFs  
   - https://www.microsoft.com/en-us/research/uploads/prod/2018/03/Azure_SmartNIC_NSDI_2018.pdf
   - https://www.nextplatform.com/2020/02/03/vertical-integration-is-eating-the-datacenter-part-two/
