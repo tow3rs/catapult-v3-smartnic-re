@@ -67,7 +67,7 @@ module GoldenTop (
 		output [3:0]    qsfp_tx,
 		input				 modprsl,		
 		
-		// Mellanox XVCR
+		// Mellanox XCVR
 		input  [3:0]    mell_rx,
 		output [3:0]    mell_tx,
 		
