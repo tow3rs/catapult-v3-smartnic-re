@@ -98,7 +98,7 @@ The following tasks are pending:
 There are the following folders in this repo:  
 - **Documents**: Contains several subfolders with pictures, datasheets, spreadsheets, etc.  
 - **Projects**: Contains the Quartus projects organized in subfolders for each category.  
-Some projects have a `'Software'` subfolder containing the NIOS II EDS projects with the apps and bsp to be used in conjunction with the hardware project.
+Some projects have a `'Software'` subfolder containing the NIOS II EDS projects with the apps and BSP to be used in conjunction with the hardware project.
 
 #### About the hardware components  
 - The FPGA P/N `10AXF40GAA` isn't listed in the Arria 10 datasheets and seems to use a non-standard nomenclature pattern.  
@@ -111,9 +111,9 @@ Anyways, Quartus is able to generate the bitstreams for the `10AXF40GAA` and thi
 - It seems that the PCIe version have a better Mellanox NIC ASIC hardware: ConnectX 3Pro vs ConnectX 4Lx.  
 ConnectX 3Pro is 40GbE capable and ConnectX 4Lx is 50GbE.
 - Although the amount of RAM is 5GB only 4.5GB are usable. One of the chips of each channel has only 8 bits wired to the FPGA.  
-- Unable to find any documentation for the PCIe side connector J8 in OCP card, only the SAMTEC bottom connector appears in the OCP documents, this one seems to be a proprietary connection. It carries 16 pairs of lanes with differential signals for PCIe (8Rx + 8Tx), once PCIe reset signal (PERST_N) and one cable detection pin.
+- Unable to find any documentation for the PCIe side connector J8 in OCP card, only the SAMTEC bottom connector appears in the OCP documents, this one seems to be a proprietary connection. It carries 16 pairs of lanes with differential signals for PCIe (8Rx + 8Tx), one PCIe reset signal (PERST_N) and one cable detection pin.
 - FPGA oscillator Y6 is 644.53125 MHz for PCIe card and 156.250 MHz for OCP card. This oscillator is supposed that clocks the FPGA communication with the Mellanox NIC ASIC. This makes sense that ConnectX 3 has a lower speed for interconnect with FPGA (maybe 40GbE or 10GbE?).
-- Unable to use the dedicated JTAG header (J5) to program the FPGA on any of the cards, Quartus Programmer reports JTAG chain errors, other tools are unable to detect any device.
+- The dedicated JTAG header (J5) can´t be used with some cheap USB Blaster clones.
 
 #### About the use of Quartus programmer and tools with the onboard USB programmer  
 When connected to a computer via USB, these boards are recognized as standard FTDI COM ports.  
@@ -155,7 +155,8 @@ Anyways, a standard Altera USB Blaster connected on the J5 Header works like a c
 #### I2C Bus scan  
 ![](Documents/Pictures/i2c_scan.jpg)  
 
-#### Testing the three PCI Express interfaces in the OCP board
+#### Testing the three PCI Express interfaces in the `Dragontails Peak` board  
+PCIe connection using an USB 3.0 cable and 1x riser adapter for each interface.  
 ![](Documents/Pictures/pcie_test.jpg)
 
 #### Basic PCI Express project with two PCIe interfaces  
