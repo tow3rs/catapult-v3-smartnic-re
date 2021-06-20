@@ -28,7 +28,7 @@ Both variants share the same main hardware components with minor differences:
 - Two independent 8x PCIe Gen3 interfaces for FPGA.
   - First interface is routed to the first 8x interface of PCIe bifurcation in SAMTEC connector (OCP board) and to 1-8 lanes of the PCIe edge (PCIe board).
   - Second interface is routed to an external connector J8 (OCP board) and to 9-16 lanes of the PCIe edge (PCIe board).
-- One PCIe 8x Gen3 interface for Mellanox NIC ASIC, routed to the second 8x PCIe bifurcation in the SAMTEC connector (OCP board) and to the Oculink connector (PCIe board).
+- One PCIe 8x Gen3 interface for Mellanox NIC ASIC, routed to the second 8x PCIe bifurcation in the SAMTEC connector (OCP board) and to the OCuLink connector (PCIe board).
 - One QSFP+ port connected to the FPGA through the U17 retimer.
 - Onboard USB JTAG programmer based on `FTDI` `FT232H`.
 - Several oscillators.
@@ -41,7 +41,7 @@ Both variants share the same main hardware components with minor differences:
 - Several external headers.
   - One I2C header for QSFP cable and retimer management.
   - One I2C header for power regulation components, PCIe clock  generation, EEPROM, temperature sensor, etc.  
-  - ONE I2C header for Mellanox NIC ASIC management and LED status.
+  - One I2C header for Mellanox NIC ASIC management and LED status.
   - One header for JTAG connection using a standard Altera Blaster.
   - One header for FAN connector (Only present in PCIe variant).
   - One header with three GPIO pins wired to FPGA (Only present in PCIe variant).
@@ -65,8 +65,8 @@ At this moment the following tasks are accomplished:
   - Second 8x interface for FPGA (`Tested PCIe communication with computer using a simple design in both boards`).
   - 8x interface for Mellanox NIC ASIC (`Tested PCIe communication with PC in the OCP variant`).
 - Identification of network interface pinouts.
-  - QSFP cage pins to retimer (`Untested`).
-  - Retimer to FPGA transceiver pins (`Untested`).
+  - QSFP cage pins to retimer (`Tested`).
+  - Retimer to FPGA transceiver pins (`Tested`).
 - Identification of two 72bit DDR4 interfaces (`Tested both channels in both boads`).
 - Identification of FPGA transceiver pins for communication with Mellanox NIC ASIC (`Untested`).
 
@@ -78,9 +78,8 @@ The [GoldenTop](Projects/GoldenTop) project contains a simple Quartus design wit
 ## TODO List  
 The following tasks are pending:  
 - Test/verify the untested tasks in previous point.  
-- Test Ethernet connectivity.  
 - Test FPGA communication to Mellanox NIC ASIC.  
-- Test Mellanox NIC ASIC PCI Express connectivity in PCIe board via Oculink connector.  
+- Test Mellanox NIC ASIC PCI Express connectivity in PCIe board via OCuLink connector.  
 - Incomplete or inaccurate constraints for already identified pins.  
 - Find some remaining unknown/GPIO pins in FPGA.  
 - Find the purpose of following components.  
@@ -112,8 +111,8 @@ Anyways, Quartus is able to generate the bitstreams for the `10AXF40GAA` and thi
 ConnectX 3Pro is 40GbE capable and ConnectX 4Lx is 50GbE.
 - Although the amount of RAM is 5GB only 4.5GB are usable. One of the chips of each channel has only 8 bits wired to the FPGA.  
 - Unable to find any documentation for the PCIe side connector J8 in OCP card, only the SAMTEC bottom connector appears in the OCP documents, this one seems to be a proprietary connection. It carries 16 pairs of lanes with differential signals for PCIe (8Rx + 8Tx), one PCIe reset signal (PERST_N) and one cable detection pin.
-- FPGA oscillator Y6 is 644.53125 MHz for PCIe card and 156.250 MHz for OCP card. This oscillator is supposed that clocks the FPGA communication with the Mellanox NIC ASIC. This makes sense that ConnectX 3 has a lower speed for interconnect with FPGA (maybe 40GbE or 10GbE?).
-- The dedicated JTAG header (J5) can´t be used with some cheap USB Blaster clones.
+- FPGA oscillator Y6 is 644.53125 MHz for PCIe card and 156.250 MHz for OCP card. This oscillator is supposed that clocks the FPGA communication with the Mellanox NIC ASIC. This makes sense that ConnectX 3Pro has a lower speed for interconnect with FPGA (maybe 40GbE or 10GbE?).
+- The dedicated JTAG header (J5) can't be used with some cheap USB Blaster clones.
 
 #### About the use of Quartus programmer and tools with the onboard USB programmer  
 When connected to a computer via USB, these boards are recognized as standard FTDI COM ports.  
