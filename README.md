@@ -1,9 +1,12 @@
 ## Project overview  
 This project aims to document the Catapult v3 SmartNIC cards that can be found occasionally on eBay.  
 These cards seem to be used in several Microsoft projects and Azure servers.  
-There are two variants of these cards:  
-- PCI Express "standard" card format, codename `'Longs Peak'`
-- Open Compute Project (OCP) Mezzanine card format, codename `'Dragontails Peak'`
+There are at least two versions of these cards:  
+- PCI Express "standard" card format, codename `'Longs Peak'`  
+- Open Compute Project (OCP) Mezzanine card format, codename `'Dragontails Peak'`, for this form factor there are at least three variants  
+  - Board with 10AXF40GAA  
+  - Board with 10AX090N3F40E2SG  
+  - Board with 10AS066N3F40I2SGES  
 
 Each of these SmartNIC features a large Arria 10 FPGA, 4 GB of DDR4-SDRAM, 128MB of flash memory for FPGA configuration, one Mellanox NIC ASIC, one QSFP+ port for 50Gb Ethernet connectivity, three 8x PCIe Gen3 interfaces, an onboard USB programmer and several LEDs.  
 As usual in these strange pieces of hardware, it's hard to find any kind of documentation.
@@ -81,7 +84,8 @@ The following tasks are pending:
 - Test FPGA communication to Mellanox NIC ASIC.  
 - Test Mellanox NIC ASIC PCI Express connectivity in PCIe board via OCuLink connector.  
 - Incomplete or inaccurate constraints for already identified pins.  
-- Find some remaining unknown/GPIO pins in FPGA.  
+- Find some remaining unknown/GPIO pins in FPGA.
+- The OCP card variant mounting the Arria 10 SOC isn't documented in this project.   
 - Find the purpose of following components.  
   - U20 (Unknown, not found datasheet for this component).  
   - U55 (I2C to GPIO). Able to identify and manipulate this component through I2C bus, but unknown it's purpose.  
@@ -122,6 +126,42 @@ The following options are reliable to make Quartus tools work:
  - Applying a small patch to the [Arrow USB Programmer](https://shop.trenz-electronic.de/Download/?path=Trenz_Electronic/Software/Drivers/Arrow_USB_Programmer) lib/dll allows any FTDI chip that implements the MPSSE protocol such as FT2232D, FT2232H, FT4232H or FT232H to be used as USB Blaster by Quartus tools in Windows or Linux environments.  
 
 Anyways, a standard Altera USB Blaster connected on the J5 Header works like a charm. Note that some cheap USB Blaster clones doest work in these boards.  
+
+#### Configuring the retimer (DS250DF8) for 40/50Gbps Ethernet connectivity  
+According to the datasheet, on power up, the retimer is configured by default to operate at a rate of 25 Gbps per channel.    
+The Arria 10 GX transceivers can operate at a maximum rate of 17.4 or 12.5 Gbps depending on speed grade.  
+If the retimer can't get CDR lock, the output is muted and connection can't be done.  
+To establish a 40/50 Gbps link, the retimer must be programmed with a rate of 10.3125 Gbps or 12.5 Gbps for each lane.
+The DS250DF810 programming guide isn't publicly available but there are [some TI forum threads](https://e2e.ti.com/support/interface-group/interface/f/interface-forum/986243/ds250df810-using-25g-retimer-with-1g-ethernet) talking about quick programming the bitrate for this device.  
+The retimer is present at address 0x22 and can be programmed via I2C using a soft NIOS processor instantiated in the FPGA or using an external I2C device connected to the J10 header.  
+
+![](Documents/Pictures/retimer.png)  
+
+The following two steps allows to configure the eight retimer channels to operate at the desired rate.  
+1. Enable access to channel registers and configure it to broadcast changes to all channels (this allows to set the bitrate for the eight retimer lanes in a single instruction)  
+`Writing a value 0x3 in the register 0xFF`
+
+2. Set the rate  
+`Writing one of the following values in the register 0x2F with mask 0xF0`
+| Single lane rate | QSFP port aggregated rate | Value for reg 0x2F | Write mask |
+|--------------|--------------|------|------|
+| 10.3125 Gbps | 41.25 Gbps   | 0x00 | 0xF0 |
+| 10.9375 Gbps | 43.7428 Gbps | 0x10 | 0xF0 |
+| 12.5 Gbps    | 50.0 Gbps    | 0x20 | 0xF0 |  
+
+It's possible to configure the retimer to work in non-retimed mode, this allow to bypass CDR lock and output raw data for use with custom bitrates.  
+`Writing the value 0x0 in the register 0x1E with mask 0xE0 enables the bypass mode, the value 0xE0 disables the bypass mode`
+
+Fine tunning the retimer requires the study of the device datasheet and the programming guide, but the previous steps allows to test the QSFP port connectivity for 40/50Gbps Ethernet or other network protocols.
+
+The project [SuperliteII_V4_QSFP](Projects/Network/SuperliteII_V4_QSFP) contains a port of one of the [IntelFPGA Wiki examples](https://community.intel.com/t5/FPGA-Wiki/High-Speed-Transceiver-Demo-Designs-Arria-10-Series/ta-p/735131) for High Speed Transceiver Demo Designs - Arria 10 Series.  
+This project uses a custom protocol called `Superlite II` to test the connectivity in the QSFP port, it only works when two SmartNICs running this project are connected with a QSFP cable. This protocol is incompatible with Ethernet, IB or other network protocols.  
+This project is basically a copy/paste version of the original one adapted to work in these Catapult V3 SmartNICs, only the following new features where added.
+ - FPGA pin assignments and some other minor changes to adapt it for Catapult V3 boards.
+ - New option to change the bitrate between 10.3125, 10.9375 or 12.5 Gbps.  
+ - New option to show QSFP cable information.  
+ - Removed some unused options to simplify the code.
+ - Status information mapped to LEDs.
 
 ## Some pictures
 
@@ -169,13 +209,24 @@ RW Everything tool writing a `01010101` pattern on BAR1 base address of the firs
 
 The green LEDs displaying the `01010101` pattern.  
 
-![](Documents/Pictures/led_pattern.jpg)  
+![](Documents/Pictures/led_pattern.jpg)
+
+#### Testing the QSFP link at 50 Gbps between two `Dragontails Peak` boards  
+QSFP connection done using a Mellanox MC2207130-00A cable.  
+![](Documents/Pictures/qsfp_superlite_test.jpg)  
+
+Superlite II v4 summary screen.  
+![](Documents/Pictures/superlite_sumary.png)  
+
+Superlite II v4 ODI eye measure.  
+![](Documents/Pictures/superlite_odi_eye.png)
 
 ## External resources
 There are some online resources mentioning these boards or the previous generation boards (Catapult v2)  
 - Some twitter threads by [@rombik_su](https://twitter.com/rombik_su) about these cards
   - https://twitter.com/rombik_su/status/1340975050665701378  
-  - https://twitter.com/rombik_su/status/1359232759823298564
+  - https://twitter.com/rombik_su/status/1359232759823298564  
+  - https://twitter.com/rombik_su/status/1413197085118287878  
 - [Jan Marjanovič](https://twitter.com/janmarjanovic)'s awesome blog and GitHub repos for Catapult v2
   - https://j-marjanovic.io/stratix-v-accelerator-card-from-ebay.html  
   - https://github.com/j-marjanovic/otma-fpga-bringup

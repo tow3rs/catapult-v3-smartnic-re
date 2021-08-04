@@ -1,0 +1,37 @@
+#!/bin/bash
+
+BSP_TYPE=hal
+BSP_DIR=.
+SOPC_DIR=../../controller.sopcinfo
+NIOS2_BSP_ARGS=""
+
+
+# Don't run make if create-this-app script is called with --no-make arg
+SKIP_MAKE=
+while [ $# -gt 0 ]
+do
+  case "$1" in
+		--no-make)
+        	SKIP_MAKE=1
+        	;;
+		*)
+			NIOS2_BSP_ARGS="$NIOS2_BSP_ARGS $1"
+			;;
+  esac
+  shift
+done
+
+
+# Run nios2-bsp utility to create a hal BSP in this directory
+# for the system with a .sopc file in $SOPC_DIR.
+cmd="nios2-bsp $BSP_TYPE $BSP_DIR $SOPC_DIR $NIOS2_BSP_ARGS"
+
+echo "create-this-bsp: Running \"$cmd\""
+$cmd || {
+    echo "$cmd failed"
+    exit 1
+}
+if [ -z "$SKIP_MAKE" ]; then
+	echo "create-this-bsp: Running make"
+	make
+fi

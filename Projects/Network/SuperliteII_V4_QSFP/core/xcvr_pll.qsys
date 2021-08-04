@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="$${FILENAME}">
+ <component
+   name="$${FILENAME}"
+   displayName="$${FILENAME}"
+   version="1.0"
+   description=""
+   tags="INTERNAL_COMPONENT=true"
+   categories="System" />
+ <parameter name="bonusData"><![CDATA[bonusData 
+{
+   element xcvr_atx_pll_a10_0
+   {
+      datum _sortIndex
+      {
+         value = "0";
+         type = "int";
+      }
+   }
+}
+]]></parameter>
+ <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
+ <parameter name="device" value="10AXF40AA" />
+ <parameter name="deviceFamily" value="Arria 10" />
+ <parameter name="deviceSpeedGrade" value="2" />
+ <parameter name="fabricMode" value="QSYS" />
+ <parameter name="generateLegacySim" value="false" />
+ <parameter name="generationId" value="0" />
+ <parameter name="globalResetBus" value="false" />
+ <parameter name="hdlLanguage" value="VERILOG" />
+ <parameter name="hideFromIPCatalog" value="true" />
+ <parameter name="lockedInterfaceDefinition" value="" />
+ <parameter name="maxAdditionalLatency" value="1" />
+ <parameter name="projectName" value="" />
+ <parameter name="sopcBorderPoints" value="false" />
+ <parameter name="systemHash" value="0" />
+ <parameter name="testBenchDutName" value="" />
+ <parameter name="timeStamp" value="0" />
+ <parameter name="useTestBenchNamingPattern" value="false" />
+ <instanceScript></instanceScript>
+ <interface
+   name="mcgb_rst"
+   internal="xcvr_atx_pll_a10_0.mcgb_rst"
+   type="conduit"
+   dir="end">
+  <port name="mcgb_rst" internal="mcgb_rst" />
+ </interface>
+ <interface
+   name="mcgb_serial_clk"
+   internal="xcvr_atx_pll_a10_0.mcgb_serial_clk"
+   type="hssi_serial_clock"
+   dir="start">
+  <port name="mcgb_serial_clk" internal="mcgb_serial_clk" />
+ </interface>
+ <interface
+   name="pll_cal_busy"
+   internal="xcvr_atx_pll_a10_0.pll_cal_busy"
+   type="conduit"
+   dir="end">
+  <port name="pll_cal_busy" internal="pll_cal_busy" />
+ </interface>
+ <interface
+   name="pll_locked"
+   internal="xcvr_atx_pll_a10_0.pll_locked"
+   type="conduit"
+   dir="end">
+  <port name="pll_locked" internal="pll_locked" />
+ </interface>
+ <interface
+   name="pll_powerdown"
+   internal="xcvr_atx_pll_a10_0.pll_powerdown"
+   type="conduit"
+   dir="end">
+  <port name="pll_powerdown" internal="pll_powerdown" />
+ </interface>
+ <interface
+   name="pll_refclk0"
+   internal="xcvr_atx_pll_a10_0.pll_refclk0"
+   type="clock"
+   dir="end">
+  <port name="pll_refclk0" internal="pll_refclk0" />
+ </interface>
+ <interface
+   name="reconfig_avmm0"
+   internal="xcvr_atx_pll_a10_0.reconfig_avmm0"
+   type="avalon"
+   dir="end">
+  <port name="reconfig_write0" internal="reconfig_write0" />
+  <port name="reconfig_read0" internal="reconfig_read0" />
+  <port name="reconfig_address0" internal="reconfig_address0" />
+  <port name="reconfig_writedata0" internal="reconfig_writedata0" />
+  <port name="reconfig_readdata0" internal="reconfig_readdata0" />
+  <port name="reconfig_waitrequest0" internal="reconfig_waitrequest0" />
+ </interface>
+ <interface
+   name="reconfig_clk0"
+   internal="xcvr_atx_pll_a10_0.reconfig_clk0"
+   type="clock"
+   dir="end">
+  <port name="reconfig_clk0" internal="reconfig_clk0" />
+ </interface>
+ <interface
+   name="reconfig_reset0"
+   internal="xcvr_atx_pll_a10_0.reconfig_reset0"
+   type="reset"
+   dir="end">
+  <port name="reconfig_reset0" internal="reconfig_reset0" />
+ </interface>
+ <interface
+   name="tx_bonding_clocks"
+   internal="xcvr_atx_pll_a10_0.tx_bonding_clocks" />
+ <interface
+   name="tx_serial_clk"
+   internal="xcvr_atx_pll_a10_0.tx_serial_clk"
+   type="hssi_serial_clock"
+   dir="start">
+  <port name="tx_serial_clk" internal="tx_serial_clk" />
+ </interface>
+ <interface
+   name="tx_serial_clk_gt"
+   internal="xcvr_atx_pll_a10_0.tx_serial_clk_gt" />
+ <module
+   name="xcvr_atx_pll_a10_0"
+   kind="altera_xcvr_atx_pll_a10"
+   version="20.1"
+   enabled="1"
+   autoexport="1">
+  <parameter name="base_device" value="NIGHTFURY5" />
+  <parameter name="bw_sel" value="low" />
+  <parameter name="device" value="10AXF40AA" />
+  <parameter name="device_family" value="Arria 10" />
+  <parameter name="enable_16G_path" value="0" />
+  <parameter name="enable_8G_path" value="1" />
+  <parameter name="enable_analog_resets" value="0" />
+  <parameter name="enable_bonding_clks" value="0" />
+  <parameter name="enable_cascade_out" value="0" />
+  <parameter name="enable_debug_ports_parameters" value="0" />
+  <parameter name="enable_ext_lockdetect_ports" value="0" />
+  <parameter name="enable_fb_comp_bonding" value="0" />
+  <parameter name="enable_hfreq_clk" value="1" />
+  <parameter name="enable_hip_cal_done_port" value="0" />
+  <parameter name="enable_manual_configuration" value="1" />
+  <parameter name="enable_mcgb" value="1" />
+  <parameter name="enable_mcgb_pcie_clksw" value="0" />
+  <parameter name="enable_pcie_clk" value="0" />
+  <parameter name="enable_pld_atx_cal_busy_port" value="1" />
+  <parameter name="enable_pld_mcgb_cal_busy_port" value="0" />
+  <parameter name="enable_pll_reconfig" value="1" />
+  <parameter name="generate_add_hdl_instance_example" value="0" />
+  <parameter name="generate_docs" value="1" />
+  <parameter name="mcgb_aux_clkin_cnt" value="0" />
+  <parameter name="mcgb_div" value="1" />
+  <parameter name="message_level" value="error" />
+  <parameter name="pma_width" value="40" />
+  <parameter name="primary_pll_buffer">GX clock output buffer</parameter>
+  <parameter name="prot_mode" value="Basic" />
+  <parameter name="rcfg_debug" value="0" />
+  <parameter name="rcfg_enable_avmm_busy_port" value="0" />
+  <parameter name="rcfg_file_prefix">altera_xcvr_atx_pll_a10</parameter>
+  <parameter name="rcfg_h_file_enable" value="1" />
+  <parameter name="rcfg_jtag_enable" value="1" />
+  <parameter name="rcfg_mif_file_enable" value="1" />
+  <parameter name="rcfg_multi_enable" value="1" />
+  <parameter name="rcfg_profile_cnt" value="3" />
+  <parameter name="rcfg_profile_data0">rcfg_debug 0 enable_pll_reconfig 1 rcfg_jtag_enable 1 rcfg_separate_avmm_busy 1 rcfg_enable_avmm_busy_port 0 set_capability_reg_enable 1 set_user_identifier 0 set_csr_soft_logic_enable 1 enable_pld_atx_cal_busy_port 1 support_mode user_mode prot_mode Basic bw_sel low refclk_cnt 1 refclk_index 0 primary_pll_buffer {GX clock output buffer} enable_8G_path 1 enable_16G_path 0 enable_pcie_clk 0 enable_cascade_out 0 enable_hip_cal_done_port 0 set_hip_cal_en 0 set_output_clock_frequency 5156.25 set_auto_reference_clock_frequency 312.5 set_manual_reference_clock_frequency 100.0 set_fref_clock_frequency 100.0 set_m_counter 1 set_ref_clk_div 1 set_l_counter 2 set_l_cascade_counter 4 set_l_cascade_predivider 1 set_k_counter 1 enable_mcgb 1 mcgb_div 1 enable_hfreq_clk 1 enable_mcgb_pcie_clksw 0 mcgb_aux_clkin_cnt 0 enable_bonding_clks 0 enable_fb_comp_bonding 0 pma_width 40 enable_pld_mcgb_cal_busy_port 0</parameter>
+  <parameter name="rcfg_profile_data1">rcfg_debug 0 enable_pll_reconfig 1 rcfg_jtag_enable 1 rcfg_separate_avmm_busy 1 rcfg_enable_avmm_busy_port 0 set_capability_reg_enable 1 set_user_identifier 0 set_csr_soft_logic_enable 1 enable_pld_atx_cal_busy_port 1 support_mode user_mode prot_mode Basic bw_sel low refclk_cnt 1 refclk_index 0 primary_pll_buffer {GX clock output buffer} enable_8G_path 1 enable_16G_path 0 enable_pcie_clk 0 enable_cascade_out 0 enable_hip_cal_done_port 0 set_hip_cal_en 0 set_output_clock_frequency 5468.75 set_auto_reference_clock_frequency 312.5 set_manual_reference_clock_frequency 100.0 set_fref_clock_frequency 100.0 set_m_counter 1 set_ref_clk_div 1 set_l_counter 2 set_l_cascade_counter 4 set_l_cascade_predivider 1 set_k_counter 1 enable_mcgb 1 mcgb_div 1 enable_hfreq_clk 1 enable_mcgb_pcie_clksw 0 mcgb_aux_clkin_cnt 0 enable_bonding_clks 0 enable_fb_comp_bonding 0 pma_width 40 enable_pld_mcgb_cal_busy_port 0</parameter>
+  <parameter name="rcfg_profile_data2">rcfg_debug 0 enable_pll_reconfig 1 rcfg_jtag_enable 1 rcfg_separate_avmm_busy 1 rcfg_enable_avmm_busy_port 0 set_capability_reg_enable 1 set_user_identifier 0 set_csr_soft_logic_enable 1 enable_pld_atx_cal_busy_port 1 support_mode user_mode prot_mode Basic bw_sel low refclk_cnt 1 refclk_index 0 primary_pll_buffer {GX clock output buffer} enable_8G_path 1 enable_16G_path 0 enable_pcie_clk 0 enable_cascade_out 0 enable_hip_cal_done_port 0 set_hip_cal_en 0 set_output_clock_frequency 6250.0 set_auto_reference_clock_frequency 312.5 set_manual_reference_clock_frequency 100.0 set_fref_clock_frequency 100.0 set_m_counter 1 set_ref_clk_div 1 set_l_counter 2 set_l_cascade_counter 4 set_l_cascade_predivider 1 set_k_counter 1 enable_mcgb 1 mcgb_div 1 enable_hfreq_clk 1 enable_mcgb_pcie_clksw 0 mcgb_aux_clkin_cnt 0 enable_bonding_clks 0 enable_fb_comp_bonding 0 pma_width 40 enable_pld_mcgb_cal_busy_port 0</parameter>
+  <parameter name="rcfg_profile_data3" value="" />
+  <parameter name="rcfg_profile_data4" value="" />
+  <parameter name="rcfg_profile_data5" value="" />
+  <parameter name="rcfg_profile_data6" value="" />
+  <parameter name="rcfg_profile_data7" value="" />
+  <parameter name="rcfg_profile_select" value="2" />
+  <parameter name="rcfg_reduced_files_enable" value="0" />
+  <parameter name="rcfg_separate_avmm_busy" value="1" />
+  <parameter name="rcfg_sv_file_enable" value="1" />
+  <parameter name="rcfg_txt_file_enable" value="0" />
+  <parameter name="refclk_cnt" value="1" />
+  <parameter name="refclk_index" value="0" />
+  <parameter name="set_altera_xcvr_atx_pll_a10_calibration_en" value="1" />
+  <parameter name="set_auto_reference_clock_frequency" value="312.5" />
+  <parameter name="set_capability_reg_enable" value="1" />
+  <parameter name="set_csr_soft_logic_enable" value="1" />
+  <parameter name="set_fref_clock_frequency" value="100.0" />
+  <parameter name="set_hip_cal_en" value="0" />
+  <parameter name="set_k_counter" value="1" />
+  <parameter name="set_l_cascade_counter" value="4" />
+  <parameter name="set_l_cascade_predivider" value="1" />
+  <parameter name="set_l_counter" value="2" />
+  <parameter name="set_m_counter" value="1" />
+  <parameter name="set_manual_reference_clock_frequency" value="100.0" />
+  <parameter name="set_output_clock_frequency" value="6250.0" />
+  <parameter name="set_rcfg_emb_strm_enable" value="1" />
+  <parameter name="set_ref_clk_div" value="1" />
+  <parameter name="set_user_identifier" value="0" />
+  <parameter name="silicon_rev" value="false" />
+  <parameter name="support_mode" value="user_mode" />
+  <parameter name="test_mode" value="0" />
+ </module>
+ <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
+ <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
+ <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
+</system>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="$${FILENAME}">
+ <component
+   name="$${FILENAME}"
+   displayName="$${FILENAME}"
+   version="1.0"
+   description=""
+   tags=""
+   categories="System" />
+ <parameter name="bonusData"><![CDATA[bonusData 
+{
+   element tx_ratematcher
+   {
+      datum _sortIndex
+      {
+         value = "0";
+         type = "int";
+      }
+   }
+}
+]]></parameter>
+ <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
+ <parameter name="device" value="10AXF40AA" />
+ <parameter name="deviceFamily" value="Arria 10" />
+ <parameter name="deviceSpeedGrade" value="2" />
+ <parameter name="fabricMode" value="QSYS" />
+ <parameter name="generateLegacySim" value="false" />
+ <parameter name="generationId" value="0" />
+ <parameter name="globalResetBus" value="false" />
+ <parameter name="hdlLanguage" value="VERILOG" />
+ <parameter name="hideFromIPCatalog" value="false" />
+ <parameter name="lockedInterfaceDefinition" value="" />
+ <parameter name="maxAdditionalLatency" value="1" />
+ <parameter name="projectName" value="" />
+ <parameter name="sopcBorderPoints" value="false" />
+ <parameter name="systemHash" value="0" />
+ <parameter name="testBenchDutName" value="" />
+ <parameter name="timeStamp" value="0" />
+ <parameter name="useTestBenchNamingPattern" value="false" />
+ <instanceScript></instanceScript>
+ <interface
+   name="fifo_input"
+   internal="tx_ratematcher.fifo_input"
+   type="conduit"
+   dir="end">
+  <port name="data" internal="data" />
+  <port name="wrreq" internal="wrreq" />
+  <port name="rdreq" internal="rdreq" />
+  <port name="clock" internal="clock" />
+  <port name="sclr" internal="sclr" />
+ </interface>
+ <interface
+   name="fifo_output"
+   internal="tx_ratematcher.fifo_output"
+   type="conduit"
+   dir="end">
+  <port name="q" internal="q" />
+  <port name="usedw" internal="usedw" />
+  <port name="full" internal="full" />
+  <port name="empty" internal="empty" />
+  <port name="almost_full" internal="almost_full" />
+  <port name="almost_empty" internal="almost_empty" />
+ </interface>
+ <module
+   name="tx_ratematcher"
+   kind="fifo"
+   version="20.1"
+   enabled="1"
+   autoexport="1">
+  <parameter name="DEVICE_FAMILY" value="Arria 10" />
+  <parameter name="GUI_AlmostEmpty" value="true" />
+  <parameter name="GUI_AlmostEmptyThr" value="3" />
+  <parameter name="GUI_AlmostFull" value="true" />
+  <parameter name="GUI_AlmostFullThr" value="7" />
+  <parameter name="GUI_CLOCKS_ARE_SYNCHRONIZED" value="0" />
+  <parameter name="GUI_Clock" value="0" />
+  <parameter name="GUI_DISABLE_DCFIFO_EMBEDDED_TIMING_CONSTRAINT" value="true" />
+  <parameter name="GUI_Depth" value="8" />
+  <parameter name="GUI_ENABLE_ECC" value="false" />
+  <parameter name="GUI_Empty" value="true" />
+  <parameter name="GUI_Full" value="true" />
+  <parameter name="GUI_LE_BasedFIFO" value="false" />
+  <parameter name="GUI_LegacyRREQ" value="1" />
+  <parameter name="GUI_MAX_DEPTH" value="Auto" />
+  <parameter name="GUI_MAX_DEPTH_BY_9" value="false" />
+  <parameter name="GUI_OVERFLOW_CHECKING" value="false" />
+  <parameter name="GUI_Optimize" value="1" />
+  <parameter name="GUI_Optimize_max" value="1" />
+  <parameter name="GUI_RAM_BLOCK_TYPE" value="Auto" />
+  <parameter name="GUI_UNDERFLOW_CHECKING" value="false" />
+  <parameter name="GUI_UsedW" value="true" />
+  <parameter name="GUI_Width" value="256" />
+  <parameter name="GUI_dc_aclr" value="true" />
+  <parameter name="GUI_delaypipe" value="5" />
+  <parameter name="GUI_diff_widths" value="false" />
+  <parameter name="GUI_msb_usedw" value="false" />
+  <parameter name="GUI_output_width" value="640" />
+  <parameter name="GUI_read_aclr_synch" value="false" />
+  <parameter name="GUI_rsEmpty" value="true" />
+  <parameter name="GUI_rsFull" value="true" />
+  <parameter name="GUI_rsUsedW" value="true" />
+  <parameter name="GUI_sc_aclr" value="false" />
+  <parameter name="GUI_sc_sclr" value="true" />
+  <parameter name="GUI_synStage" value="3" />
+  <parameter name="GUI_write_aclr_synch" value="true" />
+  <parameter name="GUI_wsEmpty" value="false" />
+  <parameter name="GUI_wsFull" value="true" />
+  <parameter name="GUI_wsUsedW" value="true" />
+ </module>
+ <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
+ <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
+ <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
+</system>

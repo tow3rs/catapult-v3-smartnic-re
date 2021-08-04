@@ -1,0 +1,172 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 2020  Intel Corporation. All rights reserved.
+# Your use of Intel Corporation's design tools, logic functions 
+# and other software and tools, and any partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Intel Program License 
+# Subscription Agreement, the Intel Quartus Prime License Agreement,
+# the Intel FPGA IP License Agreement, or other applicable license
+# agreement, including, without limitation, that your use is for
+# the sole purpose of programming logic devices manufactured by
+# Intel and sold by Intel or its authorized distributors.  Please
+# refer to the applicable agreement for further details, at
+# https://fpgasoftware.intel.com/eula.
+#
+# -------------------------------------------------------------------------- #
+
+set_global_assignment -name TOP_LEVEL_ENTITY TopEntity
+set_global_assignment -name FAMILY "Arria 10"
+set_global_assignment -name DEVICE 10AXF40AA
+
+set_global_assignment -name ENABLE_DEVICE_WIDE_RESET OFF
+set_global_assignment -name SMART_RECOMPILE OFF
+set_global_assignment -name AUTO_ENABLE_SMART_COMPILE ON
+set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
+set_global_assignment -name TIMING_ANALYZER_DO_CCPP_REMOVAL ON
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 4
+set_global_assignment -name DEVICE_FILTER_PIN_COUNT 1932
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "1.8 V"
+set_global_assignment -name DEVICE_FILTER_PACKAGE FBGA
+
+set_global_assignment -name ENABLE_OCT_DONE OFF
+set_global_assignment -name STRATIXV_CONFIGURATION_SCHEME "ACTIVE SERIAL X4"
+set_global_assignment -name USE_CONFIGURATION_DEVICE ON
+set_global_assignment -name CRC_ERROR_OPEN_DRAIN ON
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS_WEAK_PULLUP "AS INPUT TRI-STATED"
+set_global_assignment -name RESERVE_DATA0_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
+set_global_assignment -name ACTIVE_SERIAL_CLOCK FREQ_100MHZ
+
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name LAST_QUARTUS_VERSION "20.1.1 Standard Edition"
+
+
+#Preserve Unused channel set to on to prevent BTI
+set_global_assignment -name PRESERVE_UNUSED_XCVR_CHANNEL ON
+
+
+set_global_assignment -name SDC_FILE Constraints.sdc
+set_global_assignment -name VHDL_FILE TopEntity.vhd
+set_global_assignment -name VHDL_FILE core/SuperliteII_Demo.vhd
+set_global_assignment -name VHDL_FILE core/superliteii_txrx_module.vhd
+set_global_assignment -name VHDL_FILE core/txrx_pcs_64b66b.vhd
+set_global_assignment -name QSYS_FILE controller.qsys
+set_global_assignment -name QSYS_FILE core/xcvr_superlite_ii.qsys
+set_global_assignment -name QSYS_FILE core/fpll.qsys
+set_global_assignment -name QSYS_FILE core/xcvr_pll.qsys
+set_global_assignment -name QSYS_FILE core/xcvr_reset_controller.qsys
+set_global_assignment -name QSYS_FILE core/tx_ratematcher.qsys
+set_global_assignment -name VHDL_FILE core/Synchro.vhd
+set_global_assignment -name VHDL_FILE core/tx_ratematcher_control.vhd
+set_global_assignment -name VHDL_FILE core/Difference_20bit.vhd
+set_global_assignment -name VHDL_FILE core/rx_path_deskew.vhd
+set_global_assignment -name VHDL_FILE core/encoder_64b66b.vhd
+set_global_assignment -name VHDL_FILE core/decoder_66b64b.vhd
+set_global_assignment -name VERILOG_FILE core/alt_sync_regs_m2.v
+set_global_assignment -name VERILOG_FILE core/alt_times_1pt8.v
+set_global_assignment -name VERILOG_FILE core/alt_a10_temp_sense.v
+set_global_assignment -name VHDL_FILE core/package_delaytype.vhd
+set_global_assignment -name VHDL_FILE core/Reset_Synchro.vhd
+set_global_assignment -name VHDL_FILE core/measure_refclk.vhd
+set_global_assignment -name VHDL_FILE core/counter_1ms.vhd
+set_global_assignment -name VHDL_FILE core/countgenerate.vhd
+set_global_assignment -name VHDL_FILE core/CountVerify.vhd
+set_global_assignment -name VHDL_FILE core/Difference.vhd
+set_global_assignment -name VHDL_FILE core/prbsgenerate_60bit.vhd
+set_global_assignment -name VHDL_FILE core/prbsverify_60bit.vhd
+set_global_assignment -name SYSTEMVERILOG_FILE core/hyper_pipe.sv
+
+
+set_location_assignment PIN_AM17 -to leds[0]
+set_location_assignment PIN_AH18 -to leds[1]
+set_location_assignment PIN_AJ18 -to leds[2]
+set_location_assignment PIN_AH17 -to leds[3]
+set_location_assignment PIN_AJ16 -to leds[4]
+set_location_assignment PIN_AK17 -to leds[5]
+set_location_assignment PIN_AK16 -to leds[6]
+set_location_assignment PIN_AK18 -to leds[7]
+set_location_assignment PIN_AL18 -to leds[8]
+
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[0]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[1]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[2]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[3]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[4]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[5]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[6]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[7]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to leds[8]
+
+set_global_assignment -name AUTO_RESERVE_CLKUSR_FOR_CALIBRATION OFF
+
+#RX pin settings
+set_location_assignment PIN_W33 -to qsfp_rx[0]
+set_location_assignment PIN_V35 -to qsfp_rx[1]
+set_location_assignment PIN_V31 -to qsfp_rx[2]
+set_location_assignment PIN_U33 -to qsfp_rx[3]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to qsfp_rx[0]
+set_location_assignment PIN_W32 -to "qsfp_rx[0](n)"
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to qsfp_rx[3]
+set_location_assignment PIN_U32 -to "qsfp_rx[3](n)"
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to qsfp_rx[2]
+set_location_assignment PIN_V30 -to "qsfp_rx[2](n)"
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to qsfp_rx[1]
+set_location_assignment PIN_V34 -to "qsfp_rx[1](n)"
+
+
+#TX_PIN settings
+set_location_assignment PIN_V39 -to qsfp_tx[0]
+set_location_assignment PIN_U37 -to qsfp_tx[1]
+set_location_assignment PIN_T39 -to qsfp_tx[2]
+set_location_assignment PIN_R37 -to qsfp_tx[3]
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to qsfp_tx[3]
+set_location_assignment PIN_R36 -to "qsfp_tx[3](n)"
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to qsfp_tx[2]
+set_location_assignment PIN_T38 -to "qsfp_tx[2](n)"
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to qsfp_tx[1]
+set_location_assignment PIN_U36 -to "qsfp_tx[1](n)"
+set_instance_assignment -name IO_STANDARD "HIGH SPEED DIFFERENTIAL I/O" -to qsfp_tx[0]
+set_location_assignment PIN_V38 -to "qsfp_tx[0](n)"
+
+set_location_assignment PIN_AG15 -to modprsl
+set_instance_assignment -name IO_STANDARD "1.8 V" -to modprsl
+set_location_assignment PIN_AP20 -to clk_u59
+set_location_assignment PIN_E29 -to clk_y6
+set_instance_assignment -name IO_STANDARD LVDS -to clk_y6
+set_location_assignment PIN_E28 -to "clk_y6(n)"
+set_location_assignment PIN_J3 -to clk_y4
+set_instance_assignment -name IO_STANDARD LVDS -to clk_y4
+set_location_assignment PIN_K3 -to "clk_y4(n)"
+set_location_assignment PIN_U29 -to clk_y5
+set_instance_assignment -name IO_STANDARD LVDS -to clk_y5
+set_location_assignment PIN_U28 -to "clk_y5(n)"
+set_location_assignment PIN_AG5 -to clk_y3
+set_instance_assignment -name IO_STANDARD LVDS -to clk_y3
+set_location_assignment PIN_AG6 -to "clk_y3(n)"
+set_location_assignment PIN_AN29 -to clk_pcie1
+set_instance_assignment -name IO_STANDARD LVDS -to clk_pcie1
+set_location_assignment PIN_AN28 -to "clk_pcie1(n)"
+set_location_assignment PIN_AE29 -to clk_pcie2
+set_instance_assignment -name IO_STANDARD LVDS -to clk_pcie2
+set_location_assignment PIN_AE28 -to "clk_pcie2(n)"
+set_location_assignment PIN_K20 -to scl_ch1
+set_location_assignment PIN_L20 -to sda_ch1
+set_instance_assignment -name IO_STANDARD "1.8 V" -to scl_ch1
+set_instance_assignment -name IO_STANDARD "1.8 V" -to sda_ch1
+
+
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -1,0 +1,4 @@
+jtagconfig --setparam 1 JtagClock 16M
+jtagconfig --debug
+nios2-download -r -c 1 -g CatapultV3Superlite.elf
+nios2-terminal -c 1 | tee output.log
