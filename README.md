@@ -142,7 +142,8 @@ The following two steps allows to configure the eight retimer channels to operat
 `Writing a value 0x3 in the register 0xFF`
 
 2. Set the rate  
-`Writing one of the following values in the register 0x2F with mask 0xF0`
+`Writing one of the following values in the register 0x2F with mask 0xF0`  
+
 | Single lane rate | QSFP port aggregated rate | Value for reg 0x2F | Write mask |
 |--------------|--------------|------|------|
 | 10.3125 Gbps | 41.25 Gbps   | 0x00 | 0xF0 |
