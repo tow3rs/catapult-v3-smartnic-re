@@ -81,16 +81,14 @@ The [GoldenTop](Projects/GoldenTop) project contains a simple Quartus design wit
 ## TODO List  
 The following tasks are pending:  
 - Test/verify the untested tasks in previous point.  
-- Test FPGA communication to Mellanox NIC ASIC.  
-- Test Mellanox NIC ASIC PCI Express connectivity in PCIe board via OCuLink connector.  
+- Stablish communication between the FPGA and the Mellanox NIC ASIC.  
 - Incomplete or inaccurate constraints for already identified pins.  
 - Find some remaining unknown/GPIO pins in FPGA.
 - The OCP card variant mounting the Arria 10 SOC isn't documented in this project.   
 - Find the purpose of following components.  
   - U20 (Unknown, not found datasheet for this component).  
-  - U55 (I2C to GPIO). Able to identify and manipulate this component through I2C bus, but unknown it's purpose.  
-  - U22 (Level shifter with programmable I/O directions), unknown purpose of some pins, seems to communicate the FPGA with the Mellanox NIC ASIC.  
- This component interconnects several FPGA pins with Mellanox NIC ASIC.  
+  - U55 (I2C multiplexer). Able to identify and manipulate this component through I2C bus, but the purpose of some some IO pins is unknown.  
+  - U22 (Level shifter with programmable I/O directions), unknown purpose of some pins, seems to communicate the FPGA with the Mellanox NIC ASIC and with the U55 IOs. This component interconnects several FPGA pins with Mellanox NIC ASIC and U55 pins.  
 - Find the datasheet for some small components (maybe level shifters or voltage regulators?).  
 - Create a complete documentation (PDF document, etc.).  
 - Create a software interface to manage the devices attached to I2C bus.  
@@ -122,10 +120,11 @@ ConnectX 3Pro is 40GbE capable and ConnectX 4Lx is 50GbE.
 When connected to a computer via USB, these boards are recognized as standard FTDI COM ports.  
 Even though some tools such TopJTAG Probe or OpenOCD allows to use the FTDI ports as JTAG programmers, the Quartus tools doesn't recognize these devices as valid programming hardware.  
 The following options are reliable to make Quartus tools work:  
+ - The [jtag-mpsse-blaster](https://github.com/tow3rs/jtag-mpsse-blaster) project allows to use these boards with Quartus tools in Windows and Linux systems.  
  - Jan Marjanovič's project https://github.com/j-marjanovic/jtag-quartus-ft232h, allows using the FT232H as a JTAG interface for use with Quartus tools in Linux environments.  
  - Applying a small patch to the [Arrow USB Programmer](https://shop.trenz-electronic.de/Download/?path=Trenz_Electronic/Software/Drivers/Arrow_USB_Programmer) lib/dll allows any FTDI chip that implements the MPSSE protocol such as FT2232D, FT2232H, FT4232H or FT232H to be used as USB Blaster by Quartus tools in Windows or Linux environments.  
 
-Anyways, a standard Altera USB Blaster connected on the J5 Header works like a charm. Note that some cheap USB Blaster clones doest work in these boards.  
+Anyways, a standard Altera USB Blaster connected on the J5 Header works like a charm. Note that some cheap USB Blaster clones doesn't work in these boards.  
 
 #### Configuring the retimer (DS250DF8) for 40/50Gbps Ethernet connectivity  
 According to the datasheet, on power up, the retimer is configured by default to operate at a rate of 25 Gbps per channel.    
@@ -157,12 +156,19 @@ Fine tunning the retimer requires the study of the device datasheet and the prog
 
 The project [SuperliteII_V4_QSFP](Projects/Network/SuperliteII_V4_QSFP) contains a port of one of the [IntelFPGA Wiki examples](https://community.intel.com/t5/FPGA-Wiki/High-Speed-Transceiver-Demo-Designs-Arria-10-Series/ta-p/735131) for High Speed Transceiver Demo Designs - Arria 10 Series.  
 This project uses a custom protocol called `Superlite II` to test the connectivity in the QSFP port, it only works when two SmartNICs running this project are connected with a QSFP cable. This protocol is incompatible with Ethernet, IB or other network protocols.  
-This project is basically a copy/paste version of the original one adapted to work in these Catapult V3 SmartNICs, only the following new features where added.
- - FPGA pin assignments and some other minor changes to adapt it for Catapult V3 boards.
+This project is basically a copy/paste version of the original one adapted to work in these Catapult V3 SmartNICs, only the following new features where added.  
+ - FPGA pin assignments and some other minor changes to adapt it for Catapult V3 boards.  
  - New option to change the bitrate between 10.3125, 10.9375 or 12.5 Gbps.  
  - New option to show QSFP cable information.  
  - Removed some unused options to simplify the code.
  - Status information mapped to LEDs.
+
+#### Connectivity between the FPGA and the Mellanox NIC  
+Although the NIC has PCIe connectivity and it's detected as a valid network adapter, it's impossible to establish a link with the FPGA.  
+At this point several posible things can happen.  
+ - Some IO pins from the NIC remains unidentified and they are used to bring up the chip.  
+ - Hardware fail in Mellanox NIC side, FPGA side or both.  
+
 
 ## Some pictures
 
